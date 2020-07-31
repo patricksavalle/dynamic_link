@@ -42,7 +42,7 @@ Can be used for instance to asynchronously server-side, show a card of an URL as
 
 - and an embedded page, e.g. templares/card 
 
-<code>
+```html
     <!doctype html>
     <html lang="nl">
     <head>
@@ -55,7 +55,7 @@ Can be used for instance to asynchronously server-side, show a card of an URL as
     {/exp:dynamic_link}
     </body>
     </html>
-</code>
+```
 
  - cache the embedded template for higher performance, e.g. 60 minutes 
 
