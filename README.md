@@ -27,7 +27,7 @@ Or for urlencoded URL's
         {/if}
     {/exp:dynamic_link}
 
-Use this to encode an link
+Use this to encode an link (neede when the URL is part of your own URL segments)
 
     {exp:dynamic_link:encode url="..."}
 
