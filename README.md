@@ -1,4 +1,4 @@
-# Dynamic Link
+# Dynamic Link expressionengine plugin / addon
 
 Crawls and compiles the meta data of an HTML page, using normal meta tags, og:tags and twitter:tags. 
 If no image data was used, the website's largest touch-icon is used.
