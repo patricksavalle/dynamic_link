@@ -17,7 +17,7 @@ If no image data was used, the website's largest touch-icon is used.
 
 Or for urlencoded URL's
 
-    {exp:dynamic_link url="..." encoded="urlencoded"}
+    {exp:dynamic_link url="..." encoded="base64"}
         {if crawled}
         {title}
         {description}
