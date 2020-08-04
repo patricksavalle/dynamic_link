@@ -16,7 +16,6 @@ class Dynamic_link {
 
 	function __construct()
 	{
-        $rmetas = [];
         $tagdata = ee()->TMPL->tagdata;
         $url = ee()->TMPL->fetch_param('url');
         $encoded = ee()->TMPL->fetch_param('encoded');
