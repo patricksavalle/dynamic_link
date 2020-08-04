@@ -1,7 +1,8 @@
 # Dynamic Link expressionengine plugin / addon
 
 Crawls and compiles the meta data of an HTML page, using normal meta tags, og:tags and twitter:tags. 
-If no image data was used, the website's largest touch-icon is used.
+If no image data was used, the website's largest touch-icon is used. Scraped data is cached for 24hrs so this plugin
+is fast enough to use inline / synchronously.
 
     {exp:dynamic_link url="..."}
         {if crawled}
