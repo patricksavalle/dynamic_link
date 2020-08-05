@@ -10,6 +10,7 @@ is fast enough to use inline / synchronously.
         {link_description}
         {link_url}
         {link_image}
+        {link_domain}
         {if:else}
         ...
         {/if}
@@ -23,6 +24,7 @@ Or for urlencoded URL's
         {link_description}
         {link_url}
         {link_image}
+        {link_domain}
         {/if}
     {/exp:dynamic_link}
 
