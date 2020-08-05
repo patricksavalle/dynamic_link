@@ -1,15 +1,15 @@
 # Dynamic Link expressionengine plugin / addon
 
 Crawls and compiles the meta data of an HTML page, using normal meta tags, og:tags and twitter:tags. 
-If no image data was used, the website's largest touch-icon is used.
+If no image data was used, the website's largest touch-icon is used. Scraped data is cached for 24hrs so this plugin
+is fast enough to use inline / synchronously.
 
     {exp:dynamic_link url="..."}
         {if crawled}
-        {title}
-        {description}
-        {url}
-        {image}
-        {description}
+        {link_title}
+        {link_description}
+        {link_url}
+        {link_image}
         {if:else}
         ...
         {/if}
@@ -17,13 +17,12 @@ If no image data was used, the website's largest touch-icon is used.
 
 Or for urlencoded URL's
 
-    {exp:dynamic_link url="..." encoded="urlencoded"}
+    {exp:dynamic_link url="..." encoded="base64"}
         {if crawled}
-        {title}
-        {description}
-        {url}
-        {image}
-        {description}
+        {link_title}
+        {link_description}
+        {link_url}
+        {link_image}
         {/if}
     {/exp:dynamic_link}
 
@@ -49,9 +48,9 @@ Can be used for instance to asynchronously server-side, show a card of an URL as
     </head>
     <body>
     {exp:dynamic_link encoded="base64" url="{segment_3}"}
-    <h1>{title}</h1>
-    <p>{description}</p>
-    <img src="{image}" style="max-width: 100%"/>
+    <h1>{link_title}</h1>
+    <p>{link_description}</p>
+    <img src="{link_image}" style="max-width: 100%"/>
     {/exp:dynamic_link}
     </body>
     </html>
@@ -64,6 +63,9 @@ Can be used for instance to asynchronously server-side, show a card of an URL as
 
 1.0 Seems to works
 
+1.1 Renamed the variables because they conflicted with EE names, added 24hr caching
+    
+    
 ## License
 
 I don't care
