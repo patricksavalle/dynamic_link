@@ -1,4 +1,5 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php /** @noinspection PhpUnused */
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Dynamic_link Class
@@ -43,10 +44,10 @@ class Dynamic_link {
 
 				// first try og:
 				$metadata['link_url'] = @$xpath->query('/*/head/meta[@property="og:url"]/@content')->item(0)->nodeValue;
-				$metadata['link_title'] = @$xpath->query('/*/head/meta[@property="og:title"]/@content')->item(0)->nodeValue;;
-				$metadata['link_description'] = @$xpath->query('/*/head/meta[@property="og:description"]/@content')->item(0)->nodeValue;;
-				$metadata['link_image'] = @$xpath->query('/*/head/meta[@property="og:image"]/@content')->item(0)->nodeValue;;
-				$metadata['link_site_name'] = @$xpath->query('/*/head/meta[@property="og:site_name"]/@content')->item(0)->nodeValue;;
+				$metadata['link_title'] = @$xpath->query('/*/head/meta[@property="og:title"]/@content')->item(0)->nodeValue;
+				$metadata['link_description'] = @$xpath->query('/*/head/meta[@property="og:description"]/@content')->item(0)->nodeValue;
+				$metadata['link_image'] = @$xpath->query('/*/head/meta[@property="og:image"]/@content')->item(0)->nodeValue;
+				$metadata['link_site_name'] = @$xpath->query('/*/head/meta[@property="og:site_name"]/@content')->item(0)->nodeValue;
 
 				// than try twitter:
 				if (empty($metadata['link_url'])) {
@@ -67,10 +68,10 @@ class Dynamic_link {
 
 				// than be opportunistic, try other tags
 				if (empty($metadata['link_description'])) {
-					$metadata['link_description'] = @$xpath->query('/*/head/meta[@name="description"]/@content')->item(0)->nodeValue;;
+					$metadata['link_description'] = @$xpath->query('/*/head/meta[@name="description"]/@content')->item(0)->nodeValue;
 				}
 				if (empty($metadata['link_description'])) {
-					$metadata['link_description'] = @$xpath->query('/*/head/meta[@name="keywords"]/@content')->item(0)->nodeValue;;
+					$metadata['link_description'] = @$xpath->query('/*/head/meta[@name="keywords"]/@content')->item(0)->nodeValue;
 				}
 				if (empty($metadata['link_title'])) {
 					$metadata['link_title'] = @$xpath->query('/*/head/title')->item(0)->nodeValue;
