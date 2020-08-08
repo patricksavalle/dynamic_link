@@ -1,7 +1,7 @@
 # Dynamic Link expressionengine plugin / addon
 
 Crawls and compiles the meta data of an HTML page, using normal meta tags, og:tags and twitter:tags. 
-If no image data was used, the website's largest touch-icon is used. Scraped data is cached for 24hrs so this plugin
+If no image data was used, the website's largest touch-icon is used.     Scraped data is cached for 24hrs so this plugin
 is fast enough to use inline / synchronously.
 
     {exp:dynamic_link url="..."}
@@ -26,7 +26,11 @@ Or for urlencoded URL's
         {/if}
     {/exp:dynamic_link}
 
-Use this to encode an link (neede when the URL is part of your own URL segments)
+Set the caching time-to-live in sec. with "cache_ttl". Bypass (and clear) the caching using -1. No parameters means 24hr default.
+
+    {exp:dynamic_link url="..." cache_ttl="600"}
+
+Use this to encode an link (needed when the URL is part of your own URL segments)
 
     {exp:dynamic_link:encode url="..."}
 

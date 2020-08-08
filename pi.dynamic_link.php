@@ -1,35 +1,53 @@
 <?php /** @noinspection PhpUnused */
-if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Dynamic_link Class
  *
- * @package			ExpressionEngine
- * @category		Plugin
- * @author			Patrick
- * @copyright		None
+ * @package            ExpressionEngine
+ * @category        Plugin
+ * @author            Patrick
+ * @copyright        None
  * @link
  */
 
-class Dynamic_link {
+define("USERAGENT", "We come in peace - {$_SERVER['HTTP_HOST']}");
+define("DEFAULT_TTL", 24 * 60 * 60);
+
+class Dynamic_link
+{
 
 	var $return_data;
 
 	function __construct()
 	{
-        $tagdata = ee()->TMPL->tagdata;
-        $url = ee()->TMPL->fetch_param('url');
+		$url = ee()->TMPL->fetch_param('url');
+		if (empty($url)) {
+			// seems the right thing to do
+			return;
+		}
 		$encoded = ee()->TMPL->fetch_param('encoded');
 		if (strcasecmp($encoded, 'base64') === 0) {
 			$url = base64_decode($url);
 		}
+		$ttl = ee()->TMPL->fetch_param('ttl');
+		if (empty($ttl)) {
+			$ttl = DEFAULT_TTL;
+		}
+		// first try to read from cache
 		$key = __CLASS__ . '/' . md5($url);
-		$metadata = ee()->cache->get($key);
-		if (empty($metadata))
-		{
+		if ($ttl > 0) {
+			$metadata = ee()->cache->get($key);
+		} else {
+			ee()->cache->delete($key);
+		}
+		// if not found in cache, get externally
+		if (empty($metadata)) {
+
 			// read the file with our own user-agent, restore after
-			$user_agent = ini_get( 'user_agent');
-			ini_set('user_agent', 'We come in peace - https://hersengarage.nl');
+			// many webservers block the default PHP user-agent
+			$user_agent = ini_get('user_agent');
+			ini_set('user_agent', USERAGENT);
 			$html = @file_get_contents($url);
 			ini_set('user_agent', $user_agent);
 
@@ -92,15 +110,20 @@ class Dynamic_link {
 				if (empty($metadata['link_site_name'])) {
 					$metadata['link_site_name'] = $metadata['link_domain'];
 				}
-				ee()->cache->save($key, $metadata, 60 * 60 * 24);
+
+				// store in cache for next time
+				if ($ttl > 0) {
+					ee()->cache->save($key, $metadata, $ttl);
+				}
 			}
 		}
-        $this->return_data = ee()->TMPL->parse_variables($tagdata, array($metadata));
+		// cryptic EE abacadabra
+		$this->return_data = ee()->TMPL->parse_variables(ee()->TMPL->tagdata, array($metadata));
 	}
 
-    function encode()
-    {
-        return base64_encode(ee()->TMPL->fetch_param('url'));
-    }
+	function encode()
+	{
+		return base64_encode(ee()->TMPL->fetch_param('url'));
+	}
 
 }
