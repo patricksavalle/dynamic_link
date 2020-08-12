@@ -64,6 +64,7 @@ class Dynamic_link
 				$metadata['link_url'] = @$xpath->query('/*/head/meta[@property="og:url"]/@content')->item(0)->nodeValue;
 				$metadata['link_title'] = @$xpath->query('/*/head/meta[@property="og:title"]/@content')->item(0)->nodeValue;
 				$metadata['link_description'] = @$xpath->query('/*/head/meta[@property="og:description"]/@content')->item(0)->nodeValue;
+				// TODO can be multiple images
 				$metadata['link_image'] = @$xpath->query('/*/head/meta[@property="og:image"]/@content')->item(0)->nodeValue;
 				$metadata['link_site_name'] = @$xpath->query('/*/head/meta[@property="og:site_name"]/@content')->item(0)->nodeValue;
 
@@ -77,6 +78,7 @@ class Dynamic_link
 				if (empty($metadata['link_description'])) {
 					$metadata['link_description'] = @$xpath->query('/*/head/meta[@name="twitter:description"]/@content')->item(0)->nodeValue;
 				}
+				// TODO can be multiple images
 				if (empty($metadata['link_image'])) {
 					$metadata['link_image'] = @$xpath->query('/*/head/meta[@name="twitter:image"]/@content')->item(0)->nodeValue;
 				}
@@ -105,6 +107,12 @@ class Dynamic_link
 				}
 
 				// @Todo use Google JSON-LD data
+
+				// get RSS and Atom feeds
+				// <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/TheRssBlog">
+				// TODO can be multiple feeds
+				$metadata['link_rss'] = @$xpath->query('/*/head/link[@rel="alternate"][@type="application/rss+xml"]/@href')->item(0)->nodeValue;
+				$metadata['link_atom'] = @$xpath->query('/*/head/link[@rel="alternate"][@type="application/atom+xml"]/@href')->item(0)->nodeValue;
 
 				$metadata['link_domain'] = parse_url($metadata['link_url'], PHP_URL_HOST);
 				if (empty($metadata['link_site_name'])) {
