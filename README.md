@@ -69,6 +69,7 @@ Can be used for instance to asynchronously server-side, show a card of an URL as
 
 1.1 Renamed the variables because they conflicted with EE names, added 24hr caching
     
+1.2 Alternative youtube strategy
     
 ## License
 
